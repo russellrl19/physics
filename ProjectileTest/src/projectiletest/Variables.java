@@ -27,24 +27,14 @@ public class Variables {
     public void Variables () {
     }
     
-    public void Variables (double latitude, double longitude, double distanceH, char windDirection, double windVelocity) {
+    public void Variables (double latitude, double longitude, double elevation, double distanceH, double distanceV, char windDirection, double windVelocity) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.elevation = elevation;
         this.distanceH = distanceH;
+        this.distanceV = distanceV;
         this.windDirection = windDirection;
         this.windVelocity = windVelocity;
-    }
-    
-    public void setGravity (double latitude, double elevation) {
-        double a = 0.0053024;
-        double b = 0.0000058;
-        //this.gravity = (g45 - (1/2) * (gPoles - gEquator) * Math.cos(2 * latitude * (Math.PI / 180)));
-        this.gravity = 9.780327 * (1 + (a * Math.pow(Math.sin(latitude), 2)) - (b * Math.pow(Math.sin(2 * latitude), 2))) -  Math.pow(3.086, -6) * elevation;
-    }
-    ///Math.pow(Math.sin(a),2)
-    
-    public double getGravity () {
-        return gravity;
     }
     
     public void setLatitude (double latitude) {
@@ -63,13 +53,31 @@ public class Variables {
         return longitude;
     }
     
-    public void setDistanceH (double distanceH) {
-        this.distanceH = objectVelocityO * timeF;
+    public void setElevation (double elevation) {
+        this.elevation = elevation;
     }
     
-    public double getDistanceH () {
-        return distanceH;
+    public double getElevation  () {
+        return elevation;
     }
+    
+    public void setGravity (double latitude, double elevation) {
+        double a = 0.0053024;
+        double b = 0.0000058;
+        this.gravity = 9.780327 * (1 + (a * Math.pow(Math.sin(latitude), 2)) - (b * Math.pow(Math.sin(2 * latitude), 2))) - 3.086 * Math.pow(10, -6) * elevation;
+    }
+    
+    public double getGravity () {
+        return gravity;
+    }
+    
+//    public void setDistanceH (double distanceH) {
+//        this.distanceH = objectVelocityO * timeF;
+//    }
+//    
+//    public double getDistanceH () {
+//        return distanceH;
+//    }
     
     public void setDistanceV (double distanceV) {
         this.distanceV = distanceV;
@@ -103,21 +111,13 @@ public class Variables {
         return windDirection;
     }  
     
-    public void setWindSpeed (double windVelocity) {
+    public void setWindVelocity (double windVelocity) {
         this.windVelocity = windVelocity;
     }
     
     public double getWindVelocity () {
         return windVelocity;
     }  
-    
-    public void setHeight (double heightO, double heightF) {
-        this.height = heightF - heightO;
-    }
-    
-    public double getHeight () {
-        return height;
-    }
     
     public void setTimeO (double timeO) {
         this.timeO = timeO;
@@ -127,6 +127,17 @@ public class Variables {
         this.timeF = timeF;
     }
   
+//    public void setQuestionDistance (double objectVelocityO, double angleShooter) {
+//        this.distanceH = (Math.pow(objectVelocityO, 2) * Math.sin(2 * angleShooter)) / 2 * getGravity();
+//    }
+    
+    public double getDistance () {
+        System.out.println("Angle of shooter: " + angleShooter);
+        System.out.println("Object Velocity O: " + objectVelocityO);
+        System.out.println("Gravity: " + gravity);
+        System.out.println("Distance (m) before hitting the ground: " + distanceH);
+        return distanceH;
+    }
 
 //find the angle to hit an object
 //find the time to hit an object at a set angle and valocity
